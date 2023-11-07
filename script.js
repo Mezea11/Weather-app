@@ -27,11 +27,26 @@ let weather = {
             document.querySelector(".temp").innerText = tempInCelsius + "°C";
             document.querySelector(".humidity").innerText = "Humidity: " + humidity + "%";
             document.querySelector(".wind").innerText = "Wind speed: " + speed + "km/h";
+            document.querySelector('.weather').classList.remove('loading');
         } catch (error) {
             console.error("Error displaying weather:", error);
         }
+    },
+    search: function () {
+        this.fetchWeather(document.querySelector(".search-bar").value);
     }
 };
 
 
 weather.fetchWeather("YourCityName");
+
+document.querySelector('.search-button').addEventListener('click', function() {
+    weather.search();
+})
+
+document.querySelector('.search-bar').addEventListener('keyup', function(event) {
+    if (event.key == "Enter") {
+        weather.search();
+    }
+
+})
