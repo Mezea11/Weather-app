@@ -1,0 +1,37 @@
+let weather = {
+    apiKey: "d8182d8bce773a3f245f4de5ae6be0c8",
+    fetchWeather: function(city) {
+        fetch(
+            "https://api.openweathermap.org/data/2.5/weather?q=" +
+            city + 
+            "&appid=" + this.apiKey
+        )
+            .then((response) => response.json())
+            .then((data) => this.displayWeather(data))
+            .catch(error => console.error("Error:", error)); // Add error handling
+    },
+    displayWeather: function(data) {
+        try {
+            const { name } = data;
+            const { icon, description } = data.weather[0];
+            const tempInKelvin = data.main.temp;
+            const tempInCelsius = (tempInKelvin - 273.15).toFixed(2); // Convert from Kelvin to Celsius
+            const { humidity } = data.main;
+            const { speed } = data.wind;
+
+            console.log(name, icon, description, tempInCelsius, humidity, speed);
+
+            document.querySelector(".city").innerText = "Weather in " + name;
+            document.querySelector(".icon").src = "https://openweathermap.org/img/wn/" + icon + ".png";
+            document.querySelector(".description").innerText = description;
+            document.querySelector(".temp").innerText = tempInCelsius + "°C";
+            document.querySelector(".humidity").innerText = "Humidity: " + humidity + "%";
+            document.querySelector(".wind").innerText = "Wind speed: " + speed + "km/h";
+        } catch (error) {
+            console.error("Error displaying weather:", error);
+        }
+    }
+};
+
+
+weather.fetchWeather("YourCityName");
