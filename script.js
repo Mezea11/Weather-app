@@ -1,8 +1,3 @@
-//let temp = new Date();
-//let temp2 = temp.getHours();
-
-
-
 let weather = {
     apiKey: "d8182d8bce773a3f245f4de5ae6be0c8",
     fetchWeather: function(city) {
@@ -25,8 +20,9 @@ let weather = {
             const { speed } = data.wind;
             const { timezone } = data.timezone;
             const { time } = document.querySelector('.timezone');
+            const { dateConst } = document.querySelector('.show-date');
 
-            console.log(name, icon, description, tempInCelsius, humidity, speed, timezone, time);
+            console.log(name, icon, description, tempInCelsius, humidity, speed, timezone, time, dateConst);
 
             document.querySelector(".city").innerText = "Weather in " + name;
             document.querySelector(".icon").src = "https://openweathermap.org/img/wn/" + icon + ".png";
@@ -40,10 +36,17 @@ let weather = {
             let temp = new Date();
             let hours = temp.getHours();
             let minutes = temp.getMinutes();
-            let hoursNew = +hours + +gmt -1;
-            console.log(hoursNew);
+            //let days = temp.getDay();
             
+            let hoursNew = +hours + +gmt -1;
+
+            let date = new Date();
+            const month = date.toLocaleString('default', { month: 'long' });
+            const day = date.toLocaleString('default', { weekday: 'long' });
+            const year = date.getFullYear();
+
             document.querySelector(".time").innerText = "Time: " + hoursNew + ":" + minutes;
+            document.querySelector(".show-date").innerText = day + " " + month + " " + year;
 
             document.querySelector('.weather').classList.remove('loading');
         } catch (error) {
