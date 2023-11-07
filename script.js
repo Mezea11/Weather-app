@@ -36,6 +36,7 @@ let weather = {
             let temp = new Date();
             let hours = temp.getHours();
             let minutes = temp.getMinutes();
+            let monthNumber = temp.getDay();
             //let days = temp.getDay();
             
             let hoursNew = +hours + +gmt -1;
@@ -46,7 +47,7 @@ let weather = {
             const year = date.getFullYear();
 
             document.querySelector(".time").innerText = "Time: " + hoursNew + ":" + minutes;
-            document.querySelector(".show-date").innerText = day + " " + month + " " + year;
+            document.querySelector(".show-date").innerText = day + " " + month + " " + monthNumber + " " + year;
 
             document.querySelector('.weather').classList.remove('loading');
         } catch (error) {
